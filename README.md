@@ -3,73 +3,179 @@
 
 Convert videos to structured PDF transcripts for AI Avatar training and Vector Database (RAG) indexing.
 
-## Features
+## 🚀 Features
 
-- 🎥 **Video Processing**: Extract transcripts from video files
-- 🆓 **Free Transcription**: Uses Whisper.js (browser-based, unlimited, free)
-- 💰 **Low Cost**: Only uses Gemini API for metadata (cheap text processing)
-- 📄 **Multiple Export Formats**: PDF, JSON, TXT, CSV
-- 🌍 **Multi-language Support**: Handles code-switching and multiple languages
-- ⚡ **Browser-Based**: No server required - everything runs in your browser
+- **Multi-Language Support**: Verbatim transcription in original languages (no translation)
+- **AI-Powered Analysis**: Uses Google Gemini 3 Flash for intelligent video processing
+- **Multiple Export Formats**: PDF, JSON, TXT, CSV
+- **Granular Transcripts**: Sentence-level segmentation with timestamps
+- **Tone & Intent Analysis**: Emotional state and functional purpose detection
+- **RAG-Ready**: Optimized metadata for Vector Database indexing
 
-## Run Locally
+## 📋 Tech Stack
 
-**Prerequisites:** Node.js
+- **Frontend**: React 19.2 + TypeScript
+- **Build Tool**: Vite 6.2
+- **AI**: Google Gemini API
+- **Styling**: TailwindCSS + Custom CSS
+- **Icons**: Lucide React
+- **PDF Generation**: jsPDF + AutoTable
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
+## 🏗️ Architecture
 
-2. Set the `GEMINI_API_KEY` in `.env.local` to your Gemini API key:
-   ```
-   GEMINI_API_KEY=your_api_key_here
-   ```
+This project follows a **feature-based modular architecture**:
 
-3. Run the app:
-   ```bash
-   npm run dev
-   ```
+```
+src/
+├── App.tsx                 # Main application (100 lines)
+├── config/                 # Configuration & constants
+├── hooks/                  # Custom React hooks
+├── components/
+│   ├── ui/                # Shared UI components
+│   └── features/          # Feature-specific components
+├── services/              # External API integrations
+├── utils/                 # Helper functions
+└── types/                 # TypeScript definitions
+```
 
-4. Open `http://localhost:3000` in your browser
+See [REFACTORING.md](./REFACTORING.md) for detailed architecture documentation.
 
-**That's it!** No server needed - everything runs in your browser.
+## 🎯 Quick Start
 
-## How It Works
+### Prerequisites
+- Node.js 18+
+- Google Gemini API key ([Get one here](https://aistudio.google.com/apikey))
 
-1. **Audio Extraction**: Uses FFmpeg.wasm to extract audio from video (browser-based)
-2. **Free Transcription**: Uses Whisper.js for unlimited free transcription (browser-based)
-3. **Metadata Enrichment**: Uses Gemini API for cheap text-based metadata extraction
-4. **Export**: Generate PDF, JSON, TXT, or CSV files
+### Installation
 
-## Cost Breakdown
+```bash
+# Clone the repository
+git clone https://github.com/drdhavaltrivedi/video-to-pdf-transcript.git
+cd video-to-pdf-transcript
 
-- **Transcription**: FREE (Whisper.js in browser)
-- **Metadata**: ~$0.01 per 2-hour video (Gemini API for text only)
-- **Total**: ~$0.01 per video (vs ~$9.00 with full Gemini video processing)
+# Install dependencies
+npm install
 
-## Deployment
+# Create environment file
+echo "GEMINI_API_KEY=your_api_key_here" > .env.local
 
-### Vercel (Recommended)
+# Start development server
+npm run dev
+```
 
-1. Push to GitHub
-2. Connect to Vercel
-3. Add `GEMINI_API_KEY` in Vercel environment variables
-4. Deploy!
+Visit `http://localhost:3000`
 
-The app works as a static site - no serverless functions needed for the free transcription approach.
+## 📝 Usage
 
-## Tech Stack
+1. **Upload Video**: Select an MP4/MOV file (up to 50MB)
+2. **Configure**: Add title, speaker name, and category
+3. **Process**: Click "Analyze Dataset" and wait 30-90 seconds
+4. **Export**: Download as PDF, JSON, TXT, or CSV
 
-- **Frontend**: React + TypeScript + Vite
-- **Transcription**: Whisper.js (@xenova/transformers)
-- **Audio Processing**: FFmpeg.wasm
-- **Metadata**: Google Gemini API
-- **PDF Generation**: jsPDF
+## 🔧 Configuration
 
-## Notes
+Edit `src/config/constants.ts` to customize:
 
-- First-time use: Whisper model (~75MB) downloads automatically and is cached
-- Processing speed: ~1x real-time (normal for free browser-based transcription)
-- File size limit: 2GB (browser limitation)
-- Works offline: After initial model download, transcription works offline
+- Maximum file size
+- Processing timeouts
+- Export formats
+- UI animation delays
+- Error messages
+
+## 📦 Build
+
+```bash
+# Production build
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## 🧪 Key Components
+
+### Custom Hooks
+- `useVideoUpload`: File validation and preview management
+- `useVideoProcessing`: AI processing workflow orchestration
+- `useExport`: Multi-format export functionality
+
+### Features
+- **VideoUploadSection**: File picker + metadata form
+- **ResultsSummary**: Metadata display + export controls
+- **TranscriptView**: Timeline of verbatim segments
+- **ProcessingOverlay**: Loading states with progress indicators
+
+## 🔐 Security
+
+- Videos are processed client-side (base64 encoding)
+- API keys stored in environment variables only
+- Content Security Policy enforced
+- No video data persisted on servers
+
+## 🌍 Multi-Language Support
+
+The system preserves **verbatim** content across languages:
+- Detects code-switching mid-conversation
+- No automatic translation
+- Supports 100+ languages via Gemini AI
+
+## 🎨 Customization
+
+The UI uses a modern dark theme with:
+- Inter font family
+- Slate color palette
+- Smooth animations
+- Glassmorphism effects
+
+Customize in `index.css` and component styles.
+
+## 📊 Export Formats
+
+| Format | Use Case | Size |
+|--------|----------|------|
+| **PDF** | Human reading, presentations | Medium |
+| **JSON** | API integration, RAG indexing | Small |
+| **TXT** | Simple text processing | Small |
+| **CSV** | Spreadsheet analysis | Small |
+
+## 🛠️ Development
+
+```bash
+# Auto-format code
+npm run format
+
+# Type check
+npm run type-check
+
+# Lint
+npm run lint
+```
+
+## 📄 License
+
+MIT License - See LICENSE file
+
+## 🤝 Contributing
+
+Contributions welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## 📞 Support
+
+- **Issues**: [GitHub Issues](https://github.com/drdhavaltrivedi/video-to-pdf-transcript/issues)
+- **Docs**: See [REFACTORING.md](./REFACTORING.md)
+
+## 🎯 Roadmap
+
+- [ ] Batch processing
+- [ ] Real-time progress tracking
+- [ ] Custom PDF templates
+- [ ] Speaker diarization improvements
+- [ ] Cloud storage integration
+
+---
+
+**Built with ❤️ using React, TypeScript, and Google Gemini AI**
